@@ -1,0 +1,91 @@
+---
+title: "Vapply and Assertions"
+author: "Siddarta Jairam"
+date: "`r strftime(Sys.time(),'%A, %B %d, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(fig.width=7.5, fig.height=4,fig.pos='center',echo=TRUE, comment='>',dpi=800)
+
+figList <- list()
+tableList <- list()
+updateCnt <- function(cnt, nam){
+  cnt[[nam]] <- length(cnt) + 1
+}
+```
+
+Vapply is often the overlooked data analysis tool in the apply family. lapply gives a developer the advantage of list output while sapply seemingly handles much of the other cases with the others having specific use cases. vapply is often introduced after these other functions and is shown to require a much more rigorous implementation. Many don't want to have a uniform ouput with a definite size out of a call. For those interested in the speed enhancements, many overlook this step and go straight for vectorizing the process.
+
+What is often missed is that vapply exists in the middle of another continuum, interactive debugging and unit tests. Unlike a lot of functions in R, vapply actually returns errors. Additionally, these errors are actually quite informative. This comes from the function's need for an exact class and number of outputs in each iteration. Look at this output here:
+```{r, results='asis', error=TRUE}
+
+dat <- list(runDoThings = 2,
+						runOtherThings = 3,
+						runThirdThing = 54,
+						runLastThings = 90)
+
+tryCatch({
+	des <- vapply(names(dat), function(x){
+		paste(x, dat[[x]]/2, sep = ': ')
+		5
+		},'e')
+	},
+	error= function(cond){message(cond)})
+				
+
+des <- sapply(names(dat), function(x){
+	paste(x, dat[[x]]/2, sep = ': ')
+	5
+})
+```
+Moreover the implementation is self-documenting. The desired result is required in the call itself. With a little standardization using already evaluated example objects, or a call to "rep", one can see what you had in mind for that call. Take this for example:
+
+```{r}
+des <- vapply(names(dat), function(x){
+	paste(x, rnorm(2, dat[[x]]), sep = ': ')
+},rep('e', 2))
+```
+
+After 6 months, you don't have to remember how "rnorm" works or what exactly was in "dat", the ending tells you the class and number of "des[, "runDoThings"]". If the process changes  make it mistakenly output a larger vector by mistake, this will result in an error. Take the sapply equivalent:
+
+```{r}
+des <- sapply(names(dat), function(x){
+	res <- paste(x, rnorm(3, dat[[x]]), sep = ': ')
+	if(class(res) != class('e')){
+		stop(sprintf("Error values must be of type %s, but FUN(X[[%s]]) result is type %s", class('e'), x, class('res')))
+	}
+	if(length(res) != 3){
+		stop(sprintf("Error values must be length %f, but FUN(X[[%s]]) result is length %d", 2, x, length(res)))
+	}
+	return(res)
+})
+```
+
+Obviously you can use some other exception handling packages to decrease the verbage but it is still doing a lot under the hood. Additionally, vapply makes it easier to change the specification with an expanded function or scope.
+
+The real advantage of this function comes with combining these two types of assertions and being able to give a more complicated call without losing the clean look of vapply:
+
+```{r}
+des <- list()
+vapply(dat, function(x){
+	out <- paste(x, rnorm(3, x), sep = ': ')
+	des <- cbind(des, out)
+	return(all(nzchar(out)))
+	
+	
+},TRUE)
+```
+
+Instead of relying on the output, the processing is done inline which looks more natural coming from a programming language that is dominated by for loops. The output is than cleared up for a test. The test then checks 3 different things, the existence, the output's class and number. This is while only taking up one line and looking quite stylish. The result has all the tests, the col and row names if done on two dimensions. Now this has the disadvantage of detecting an error and throwing it later but with this comes the ability to check if the error can occur in other situations.
+
+```{r}
+dat
+```
+
+Its easy now to see that col 3 row 2 had a problem when the rest did not. What was different about (2,3) that raised an error? We know from the table that it has to be something that it doesn't have in common with the rest of the tests. Trying the pin point the error can lead to expanding the processing to see when it raises and when it does not. In this way, the processing can be changed a bit and a new case can be added to test some other situation all in one call. The original raised flag is kept to make sure that it goes down with a new function.
+
+This workflow keeps things documented and makes testing easier. Of course, a full testing suite would be better but for medium sized projects this use case keeps the output and the function pretty and informative.
+
+*rmarkdown files for this post can be found on https://github.com/sidjai/blogs*
