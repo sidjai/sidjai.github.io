@@ -1,0 +1,133 @@
+---
+layout: post.html
+title: Vapply and Assertions
+author: Siddarta Jairam
+tags: R
+---
+Vapply is often the overlooked data analysis tool in the apply family.
+lapply gives a developer the advantage of a list output while sapply
+seemingly handles much of the other cases. The others are shown as
+having very specific use cases that one should only learn if you can't
+find another tool to do the job. vapply is often introduced after these
+other functions and is shown to require a much more rigorous
+implementation. Many don't want the call to have a uniform ouput with a
+definite size. For those interested in the speed enhancements, many
+overlook this step and go straight for vectorizing the process.
+
+What is often missed is that vapply exists in the middle of another
+continuum, interactive debugging and unit tests. Unlike a lot of
+functions in R, vapply actually returns errors. Additionally, these
+errors are actually quite informative. This comes from the function's
+need for an exact class and number of outputs in each iteration. Look at
+this output:
+
+    dat <- list(runDoThings = 2,
+                            runOtherThings = 3,
+                            runThirdThing = 54,
+                            runLastThings = 90)
+                            
+
+    tryCatch({
+        des <- vapply(names(dat), function(x){
+            paste(x, dat[[x]]/2, sep = ': ')
+            5
+            },'e')
+        },
+        error= function(cond){message(cond)})
+
+    > Error in vapply(names(dat), function(x) {: values must be type 'character',
+    >  but FUN(X[[1]]) result is type 'double'
+
+    cat(sapply(names(dat), function(x){
+        paste(x, dat[[x]]/2, sep = ': ')
+        5
+    }))
+
+5 5 5 5
+
+Moreover the implementation is self-documenting. The desired result is
+required in the call itself. With a little standardization using already
+evaluated example objects, or a call to "rep", one can see what you had
+in mind for that call. Take this for example:
+
+    des <- vapply(names(dat), function(x){
+        paste(x, rnorm(2, dat[[x]]), sep = ': ')
+    },rep('e', 2))
+
+After 6 months, you don't have to remember how "rnorm" works or what
+exactly was in "dat", the ending tells you the class and number of
+"des[, "runDoThings"]". If the process changes to make it mistakenly
+output a larger vector, this will result in an error. Take the sapply
+equivalent:
+
+    des <- sapply(names(dat), function(x){
+        res <- paste(x, rnorm(3, dat[[x]]), sep = ': ')
+        if(class(res) != class('e')){
+            stop(sprintf("Error values must be of type %s, but FUN(X[[%s]]) result is type %s", class('e'), x, class('res')))
+        }
+        if(length(res) != 3){
+            stop(sprintf("Error values must be length %f, but FUN(X[[%s]]) result is length %d", 2, x, length(res)))
+        }
+        return(res)
+    })
+
+Obviously you can use some other exception handling packages to decrease
+the verbage, but vapply is still doing a lot under the hood.
+Additionally, vapply makes it easier to change the specification with an
+expanded function or scope.
+
+The real advantage of this function comes with combining these two types
+of assertions and being able to give a more complicated call without
+losing the clean look of vapply:
+
+    des <- list()
+    vapply(dat, function(x){
+        out <- paste(x, rnorm(3, x), sep = ': ')
+        des <- cbind(des, out)
+        return(all(nzchar(out)))
+
+
+    },TRUE)
+
+    >    runDoThings runOtherThings  runThirdThing  runLastThings 
+    >           TRUE           TRUE           TRUE           TRUE
+
+Instead of relying on the output, the processing is done inline which
+looks more natural coming from any programming language that is
+dominated by loops. The output is than cleared up for a test. The test
+then checks 3 different things: the character length, the output's class
+and number. This assertion only takes up one line and looks quite
+stylish. The result has all the tests, the col and row names if done on
+two dimensions. Now this has the disadvantage of not throwing an error
+immedieatly when found, but with this comes the ability to check if the
+error can occur in other situations.
+
+    des <- list()
+    vapply(dat, function(x){
+        out <- paste(x, rnorm(3, x), sep = ': ')
+        des <- cbind(des, out)
+        return(x > 10)
+
+
+    },TRUE)
+
+    >    runDoThings runOtherThings  runThirdThing  runLastThings 
+    >          FALSE          FALSE           TRUE           TRUE
+
+Its easy now to see that the first two runs have a problem when the rest
+do not. What was different about these runs that raised an error? Trying
+the pin point the error can lead to expanding the processing to see when
+it raises and when it does not. In this way, the assertion can grow and
+accommodate a growing procedure.
+
+This workflow keeps things documented and makes debugging easier. This
+comes with a drawback of making the call stack a bit confusing. However,
+the ability to redo the process with other constraints more than makes
+up for it. To be useful, assertions have to be used often so that the
+code is separated by gates of things you know to be true. This code
+makes it easy and fun to add assertions to regular function calls
+without a bulky if statement with a "stop" call or another package
+dependency.
+
+*rmarkdown files for this post can be found on
+<https://github.com/sidjai/blogs>*

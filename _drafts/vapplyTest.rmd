@@ -2,13 +2,12 @@
 title: "Vapply and Assertions"
 author: "Siddarta Jairam"
 date: "`r strftime(Sys.time(),'%A, %B %d, %Y')`"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
-
+source("utils.R")
 knitr::opts_chunk$set(fig.width=7.5, fig.height=4,fig.pos='center',echo=TRUE, comment='>',dpi=800)
-
 figList <- list()
 tableList <- list()
 updateCnt <- function(cnt, nam){
