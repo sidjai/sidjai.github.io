@@ -1,10 +1,10 @@
 body {
    font-family: Helvetica, arial, sans-serif;
-   font-size: 14px;
+   font-size: 18px;
    line-height: 1.6;
    padding-top: 10px;
    padding-bottom: 10px;
-   background-color: white;
+   background-color: #fcfceb;
    padding: 30px; }
 
 body > *:first-child {
@@ -142,7 +142,7 @@ dl dd > :last-child {
 blockquote {
    border-left: 4px solid #dddddd;
    padding: 0 15px;
-   color: #777777; }
+   color: white; }
 blockquote > :first-child {
    margin-top: 0; }
 blockquote > :last-child {
@@ -240,7 +240,7 @@ code, tt {
    padding: 0 5px;
    white-space: nowrap;
    border: 1px solid #eaeaea;
-   background-color: #f8f8f8;
+   background-color: white;
    border-radius: 3px; }
 
 pre code {
