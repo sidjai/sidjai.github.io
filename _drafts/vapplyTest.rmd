@@ -96,5 +96,3 @@ vapply(dat, function(x){
 Its easy now to see that the first two runs have a problem when the rest do not. What was different about these runs that raised an error? Trying the pin point the error can lead to expanding the processing to see when it raises and when it does not. In this way, the assertion can grow and accommodate a growing procedure.
 
 This workflow keeps things documented and makes debugging easier. This comes with a drawback of making the call stack a bit confusing. However, the ability to redo the process with other constraints more than makes up for it. To be useful, assertions have to be used often so that the code is separated by gates of things you know to be true. This code makes it easy and fun to add assertions to regular function calls without a bulky if statement with a "stop" call or another package dependency.
-
-*rmarkdown files for this post can be found on https://github.com/sidjai/blogs*
