@@ -1,5 +1,5 @@
 ---
-layout: post.html
+layout: post
 title: Hello World Decision Cream
 author: Siddarta Jairam
 tags: R

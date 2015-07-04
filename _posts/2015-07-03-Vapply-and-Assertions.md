@@ -1,5 +1,5 @@
 ---
-layout: post.html
+layout: post
 title: Vapply and Assertions
 author: Siddarta Jairam
 tags: R
@@ -128,6 +128,3 @@ code is separated by gates of things you know to be true. This code
 makes it easy and fun to add assertions to regular function calls
 without a bulky if statement with a "stop" call or another package
 dependency.
-
-*rmarkdown files for this post can be found on
-<https://github.com/sidjai/blogs>*

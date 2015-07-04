@@ -26,7 +26,7 @@ publishGitio <- function(path, layout, tags){
 	normAuthor <- grabYamlOpt(rmdPath, "author")
 
 	postFileName <- paste0(strftime(Sys.time(), '%Y-%m-%d-'),
-												 gsub(" ", '-', normTitle))
+												 gsub(" ", '-', normTitle), ".md")
 	pathPub <- paste(blogRoot, "_posts", postFileName , sep = '/')
 
 	jYaml <- getJkylYaml(layout, title = normTitle, author = normAuthor, tags = tags )
