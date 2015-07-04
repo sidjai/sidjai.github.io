@@ -1,3 +1,7 @@
-#Blogs
+#Personal Blog
 
-The rmd files for the blog Decision Cream
+The data for the blog decision-cream.com lies herein
+
+#License
+
+Everything found here is under MIT license Copyright (c) 2015 Siddarta Jairam.
