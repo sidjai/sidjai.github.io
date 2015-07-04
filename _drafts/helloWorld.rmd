@@ -1,8 +1,8 @@
 ---
-title: "Hello World: Decision Cream"
+title: "Hello World Decision Cream"
 author: "Siddarta Jairam"
 date: "`r strftime(Sys.time(),'%A, %B %d, %Y')`"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}

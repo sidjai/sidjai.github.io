@@ -35,7 +35,7 @@ publishGitio <- function(path, layout, tags){
 	writeLines(pubMd, pathPub)
 
 	#build with jekyll
-	#system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll build"))
+	system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll build"))
 
 
 }
