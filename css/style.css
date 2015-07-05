@@ -4,8 +4,17 @@ body {
    line-height: 1.6;
    padding-top: 10px;
    padding-bottom: 10px;
-   background-color: #fcfceb;
-   padding: 30px; }
+   background-color: #fcfceb;}
+
+header {background-color: #fcfceb;}
+
+#main {
+  border: 30px solid white;
+  border-top: 10px;
+
+  background-color: white;
+}
+
 
 body > *:first-child {
    margin-top: 0 !important; }
@@ -251,7 +260,7 @@ pre code {
    background: transparent; }
 
 .highlight pre {
-   background-color: #f8f8f8;
+   background-color: white;
    border: 1px solid #cccccc;
    font-size: 13px;
    line-height: 19px;
@@ -260,7 +269,7 @@ pre code {
    border-radius: 3px; }
 
 pre {
-   background-color: #f8f8f8;
+   background-color: #fcfceb;
    border: 1px solid #cccccc;
    font-size: 13px;
    line-height: 19px;
