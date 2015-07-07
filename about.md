@@ -1,4 +1,8 @@
-#About
+---
+layout: page
+title: About
+author: Siddarta Jairam
+---
 
 ##Siddarta Jairam
 
