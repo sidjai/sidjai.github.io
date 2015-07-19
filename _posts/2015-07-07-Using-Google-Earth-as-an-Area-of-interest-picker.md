@@ -3,6 +3,7 @@ layout: post
 title: Using Google Earth as an Area of interest picker
 author: Siddarta Jairam
 tags: R
+comments: true
 ---
 Using the raster package to query geospatial data sets is easy. You can
 use coordinates, a station list, an extent object, the grid row or col

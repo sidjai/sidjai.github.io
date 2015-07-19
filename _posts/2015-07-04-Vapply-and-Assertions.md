@@ -3,6 +3,7 @@ layout: post
 title: Vapply and Assertions
 author: Siddarta Jairam
 tags: R
+comments: true
 ---
 Vapply is often the overlooked data analysis tool in the apply family.
 lapply gives a developer the advantage of a list output while sapply
@@ -25,7 +26,7 @@ this output:
                             runOtherThings = 3,
                             runThirdThing = 54,
                             runLastThings = 90)
-                            
+
 
     tryCatch({
         des <- vapply(names(dat), function(x){
@@ -89,7 +90,7 @@ losing the clean look of vapply:
 
     },TRUE)
 
-    >    runDoThings runOtherThings  runThirdThing  runLastThings 
+    >    runDoThings runOtherThings  runThirdThing  runLastThings
     >           TRUE           TRUE           TRUE           TRUE
 
 Instead of relying on the output, the processing is done inline which
@@ -111,7 +112,7 @@ error can occur in other situations.
 
     },TRUE)
 
-    >    runDoThings runOtherThings  runThirdThing  runLastThings 
+    >    runDoThings runOtherThings  runThirdThing  runLastThings
     >          FALSE          FALSE           TRUE           TRUE
 
 Its easy now to see that the first two runs have a problem when the rest

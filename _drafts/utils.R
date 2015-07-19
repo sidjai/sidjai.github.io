@@ -29,7 +29,12 @@ publishGitio <- function(path, layout, tags){
 												 gsub(" ", '-', normTitle), ".md")
 	pathPub <- paste(blogRoot, "_posts", postFileName , sep = '/')
 
-	jYaml <- getJkylYaml(layout, title = normTitle, author = normAuthor, tags = tags )
+	jYaml <- getJkylYaml(
+		layout,
+		title = normTitle,
+		author = normAuthor,
+		tags = tags,
+		comments = "true")
 
 	pubMd <- c(jYaml, pubMd)
 	writeLines(pubMd, pathPub)
