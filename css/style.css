@@ -7,7 +7,11 @@ body {
    background-color: #fcfceb;}
 
 header {background-color: #fcfceb;}
-
+div.footer {
+  font-size: 14px;
+  color:  #696969;
+  text-align: center;
+}
 #main {
   border: 30px solid white;
   border-top: 10px;
@@ -22,11 +26,11 @@ body > *:last-child {
    margin-bottom: 0 !important; }
 
 a {color: black; }
-a:link {text-decoration: none;}
+a:link {text-decoration: underline;}
 
 a:visited {text-decoration: none;}
 
-a:hover {text-decoration: underline;}
+a:hover {color:  #d3d3d3;}
 
 a:active {text-decoration: underline;}
 
