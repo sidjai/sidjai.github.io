@@ -36,7 +36,13 @@ publishGitio <- function(path, layout, tags){
 		tags = tags,
 		comments = "true")
 
-	pubMd <- c(jYaml, pubMd)
+  pubMd <- gsub("\\\\[<]-", "<-", pubMd)
+	pubMd <- gsub("\\\\[*]", "*", pubMd)
+
+	footer <- paste0("*rmarkdown files for this post can be found at: ",
+		"https://github.com/sidjai.github.io/", rmdPath, "*")
+
+	pubMd <- c(jYaml, pubMd, "", footer)
 	writeLines(pubMd, pathPub)
 
 	#build with jekyll
