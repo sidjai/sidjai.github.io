@@ -12,6 +12,8 @@ div.footer {
   color:  #696969;
   text-align: center;
 }
+div.site-info a:link {text-decoration: none;}
+nav a:link {text-decoration: none;}
 #main {
   border: 30px solid white;
   border-top: 10px;
@@ -30,7 +32,7 @@ a:link {text-decoration: underline;}
 
 a:visited {text-decoration: none;}
 
-a:hover {color:  #d3d3d3;}
+a:hover {color:  #989898; text-decoration: none;}
 
 a:active {text-decoration: underline;}
 
