@@ -1,0 +1,11 @@
+---
+title: "biosplit v0.2.2 released"
+author: "Siddarta Jairam"
+date: "`r strftime(Sys.time(),'%A, %B %d, %Y')`"
+output: md_document
+---
+
+
+We have loads of observational data on monarch butterflies' flights. We have a lot of studies doing experiments on what governs direction, speed or length of a butterflies' flight. What is missing is a predictive model to tie these parameters with the observational data. This gap is magnified for lesser known pests that directly impact the yields of crops. The R package, biosplit tries to fill this gap using a biological and physical model. Simple parameters can be fed into the program and a year's worth of migration is simulated using a passive dispersal model called HYSPLIT from NOAA. Some of the output that can be generated can be seen in this recently published paper.
+
+J. K. Westbrook, R. N. Nagoshi, R. L. Meagher, and S. J. Fleischer, S. Jairam (2015), Modeling Seasonal Migration of Fall Armyworm Moths, International Journal of Biometeorology, doi: 10.1007/s00484-015-1022-x

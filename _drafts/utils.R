@@ -6,7 +6,7 @@ getJkylYaml <- function(layout, title, ...){
 	return(addYaml)
 }
 
-publishGitio <- function(path, layout, tags){
+publishGitio <- function(path, layout, tags, noFoot = FALSE){
 	if(grepl("[.]rmd", path)){
 		knitr::render_jekyll(highlight = "pygments")
 		rmarkdown::render(path)
@@ -38,11 +38,16 @@ publishGitio <- function(path, layout, tags){
 
   pubMd <- gsub("\\\\[<]-", "<-", pubMd)
 	pubMd <- gsub("\\\\[*]", "*", pubMd)
+	
+	pubMd <- c(jYaml, pubMd, "")
+	if(!noFoot){
+		footer <- paste0("*rmarkdown files for this post can be found at: ",
+			"https://github.com/sidjai.github.io/", rmdPath, "*")
+		pubMd <- c(pubMd, footer)
+		
+	}
 
-	footer <- paste0("*rmarkdown files for this post can be found at: ",
-		"https://github.com/sidjai.github.io/", rmdPath, "*")
-
-	pubMd <- c(jYaml, pubMd, "", footer)
+	
 	writeLines(pubMd, pathPub)
 
 	#build with jekyll
