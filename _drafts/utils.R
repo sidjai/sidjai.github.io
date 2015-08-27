@@ -6,7 +6,7 @@ getJkylYaml <- function(layout, title, ...){
 	return(addYaml)
 }
 
-publishGitio <- function(path, layout, tags, noFoot = FALSE){
+publishGitio <- function(path, layout, tags, noFoot = FALSE, shPreview = FALSE){
 	if(grepl("[.]rmd", path)){
 		knitr::render_jekyll(highlight = "pygments")
 		rmarkdown::render(path)
@@ -52,6 +52,10 @@ publishGitio <- function(path, layout, tags, noFoot = FALSE){
 
 	#build with jekyll
 	system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll build"))
+	
+	if(shPreview){
+		system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll serve --no-watch"))
+	}
 
 
 }
