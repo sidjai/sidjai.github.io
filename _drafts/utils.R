@@ -54,7 +54,7 @@ publishGitio <- function(path, layout, tags, noFoot = FALSE, shPreview = FALSE){
 	system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll build"))
 	
 	if(shPreview){
-		system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll serve --no-watch"))
+		system(paste("cd", paste0('"', blogRoot, '"'), "&&", "jekyll serve --no-watch --detach"))
 	}
 
 

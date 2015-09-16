@@ -10,7 +10,11 @@ This project connects biological models of growth and death of migrant moths ove
 
 ##matconv: A code converter from MatLab to R
 
-The time and headaches that come from migrating legacy code into a new language keeps many from transitioning to R. MatLab users have a different perspective since R and MatLab are very similar in scope and purpose. The connection is so close that many of the base functions can be transfered 1 to 1 to R with a few syntax quirks. Beyond changing simple things like loop syntax, this program aims to migrate these base functions and even transfer the data structures to a given format. This can be found on github [here!](https://github.com/sidjai/matconv).
+The time and headaches that come from migrating legacy code into a new language keeps many from transitioning to R. MatLab users have a different perspective since R and MatLab are very similar in scope and purpose. The connection is so close that many of the base functions can be transferred 1 to 1 to R with a few syntax quirks. Beyond changing simple things like loop syntax, this program aims to migrate these base functions and even transfer the data structures to a given format. This can be found on github [here!](https://github.com/sidjai/matconv).
+
+##tf2statr: A utility to query Team Fortress 2 stats
+
+Finding and looking through logs is now an arduous process spanning multiple APIs and websites. This package attempts to consolidate this information by bringing the stats into R. This opens up the process to the power of R along with quick and easier sharing of these stats. It can be found as an R package on Github [here!](https://github.com/sidjai/tf2statr).
 
 ##Integrated Environmental, Health and Safety Index (IEHS)
 
